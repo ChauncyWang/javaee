@@ -28,8 +28,6 @@
     <!-- spring 和 mybatis 的结合,不需要 mybatis 的配置文件  -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!-- 自动扫描位置 -->
-        <property name="mapperLocations" value="classpath:*"/>
     </bean>
     <!-- dao 接口所在包 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -38,7 +36,9 @@
     </bean>
     <!-- spring 定时器测试 -->
     <!-- 被执行类 -->
-    <bean id="task" class="com.chava96.TestTask"/>
+    <bean id="task" class="com.chava96.TestTask">
+        <property name="scheduler" ref="scheduler"/>
+    </bean>
     <!-- 将 task 注入到job中 -->
     <bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="task" />
@@ -50,12 +50,12 @@
     <bean id="testTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="testJob"/>
         <property name="cronExpression">
-            <value>0 0 6 * * ?</value>
+            <value>0/3 * * * * ?</value>
         </property>
     </bean>
 
     <!-- 将触发器注入任务工程 -->
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="testTrigger" />
