@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class Test {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("mybatis-spring-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/mybatis-spring-config.xml");
         BasicDataSource dataSource = (BasicDataSource) context.getBean("dataSource");
         try {
             Object a = dataSource.getConnection();
