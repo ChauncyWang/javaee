@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chava96.blog.dao.UserDao">
+    <insert id="insert" parameterType="com.chava96.blog.models.User">
+        INSERT INTO blog_users (ID, user_login, user_pass, user_nicename, user_email, user_url, user_registered,
+                                user_activation_key, user_status, display_name)
+            VALUE (#{id}, #{login}, #{pass}, #{niceName}, #{email}, #{url}, #{registered}, #{activationKey}, #{status},
+                   #{displayName})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM blog_users
+        WHERE ID = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.chava96.blog.models.User">
+        UPDATE blog_users
+        SET user_login  = #{login}, user_pass = #{pass}, user_nicename = #{niceName}, user_email = #{email},
+            user_url    = #{url}, user_registered = #{registered}, user_activation_key = #{activationKey},
+            user_status = #{status}, display_name = #{displayName}
+        WHERE ID = #{id}
+    </update>
+
+    <select id="select" resultType="com.chava96.blog.models.User" parameterType="int">
+        SELECT
+            ID                  id,
+            user_login          login,
+            user_pass           pass,
+            user_nicename       nicename,
+            user_email          email,
+            user_url            url,
+            user_registered     registered,
+            user_activation_key activationKey,
+            user_status         status,
+            display_name        displayName
+
+        FROM blog_users
+        WHERE ID = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.chava96.blog.models.User">
+        SELECT
+            ID                  id,
+            user_login          login,
+            user_pass           pass,
+            user_nicename       nicename,
+            user_email          email,
+            user_url            url,
+            user_registered     registered,
+            user_activation_key activationKey,
+            user_status         status,
+            display_name        displayName
+
+        FROM blog_users
+    </select>
+</mapper>

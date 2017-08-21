@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- mvc 扫描的包 -->
-    <context:component-scan base-package="com"/>
+    <context:component-scan base-package="com.chava96.blog"/>
     <!-- 开启注解配置 -->
     <mvc:annotation-driven/>
     <!-- 静态资源 -->

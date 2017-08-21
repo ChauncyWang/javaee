@@ -22,21 +22,22 @@
         <!-- 数据库连接池的初始值 -->
         <property name="initialSize" value="1"/>
     </bean>
-
     <!-- spring 和 mybatis 的结合,不需要 mybatis 的配置文件  -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描 mapper.xml 文件 -->
-        <property name="mapperLocations" value="classpath:com/chava96/models/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath*:com/chava96/blog/models/*Mapper.xml"/>
     </bean>
+
     <!-- dao 接口所在包 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.chava96"/>
+        <property name="basePackage" value="com.chava96.blog.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
     <!-- 配置spring的声明式事务，名字为默认值 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- 开启事务控制的注解支持 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
